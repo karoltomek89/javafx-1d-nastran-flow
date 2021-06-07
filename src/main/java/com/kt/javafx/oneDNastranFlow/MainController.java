@@ -20,17 +20,17 @@ class MainController {
 
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1, String diameter2,
                              String pconvPropertyId, String matId, String formulaType,
-                             String massFlowConvection) throws IOException{
+                             String massFlowConvection, String pathToBDF) throws IOException{
 
-        plotelManipulator.creteArrays(bdfReader.readBDF());
+        plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF));
 
-        propertiesCreator.createPHBDY(phbdyPropertyId,diameter1, diameter2);
+        propertiesCreator.createPHBDY(phbdyPropertyId, diameter1, diameter2);
         propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection);
         propertiesCreator.createMAT4(matId);
 
         List<String> test1 = ElementsCreator
                 .createChbdyp(Integer.parseInt(offset),
-                        plotelManipulator.plotelInSolid,
+                        plotelManipulator.plotelAboveSolid,
                         Integer.parseInt(phbdyPropertyId),
                         "FTUBE");
         List<String> test2 = ElementsCreator
@@ -58,6 +58,7 @@ class MainController {
 
     void clear(){
         propertiesCreator.clear();
+        bdfReader.clear();
     }
 
 }

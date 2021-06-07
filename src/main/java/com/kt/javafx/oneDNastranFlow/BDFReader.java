@@ -10,17 +10,13 @@ import java.util.stream.Collectors;
 
 class BDFReader {
 
-    private String bdfName = null;
+    private String bdfName;
     private List<String> plotelList = new ArrayList<>();
 
-    List<String> readBDF() {
+    List<String> readBDF(String pathToDBF) {
 
         try {
-            bdfName = Files.list(Paths.get(""))
-                    .filter(path -> path.toString().endsWith(".bdf"))
-                    .findFirst()
-                    .get()
-                    .toString();
+            bdfName = pathToDBF;
 
             plotelList = Files.lines(Paths.get(bdfName), StandardCharsets.ISO_8859_1)
                     .filter(p -> p.startsWith("PLOTEL  "))
@@ -38,5 +34,10 @@ class BDFReader {
                 .sorted()
                 .collect(Collectors.toList());
 
+    }
+
+    void clear (){
+        bdfName = null;
+        plotelList = new ArrayList<>();
     }
 }

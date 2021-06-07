@@ -89,9 +89,11 @@ public class PrimaryController {
                 input_pconv_property_id.getText(),
                 input_mat_id.getText(),
                 input_choice_form_type.getValue().toString(),
-                input_choice_flag.getValue().toString());
+                input_choice_flag.getValue().toString(), path_to_bdf.getText());
+
 
         mainController.clear();
+        path_to_bdf.setText("BDF name");
     }
 
 }
