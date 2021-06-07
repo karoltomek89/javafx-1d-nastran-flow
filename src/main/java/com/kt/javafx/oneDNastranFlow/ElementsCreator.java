@@ -8,12 +8,13 @@ class ElementsCreator {
     static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
 
         List<String> chbdypForExport = new ArrayList<>();
+        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
 
         for (int i = 0; i < plotelAboveSolid.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("CHBDYP")
                     .append(",")
-                    .append(plotelAboveSolid[i][0] + offset)
+                    .append(startNumber + offset + i)
                     .append(",")
                     .append(propertyId)
                     .append(",")
@@ -30,11 +31,13 @@ class ElementsCreator {
 
     static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId) {
         List<String> convmForExport = new ArrayList<>();
+        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
+
         for (int i = 0; i < plotelInSolid.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("CONVM")
                     .append(",")
-                    .append(plotelAboveSolid[i][0] + offset)
+                    .append(startNumber + offset + i)
                     .append(",")
                     .append(propertyId + 1)
                     .append(",,")
