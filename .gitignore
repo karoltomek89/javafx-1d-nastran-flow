@@ -1,0 +1,17 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+*.bdf
+*.txt
+*.log
+
+*.jar
+*.exe
+
+/out/
+target/
+/.idea/
+/forEXEconf.xml
