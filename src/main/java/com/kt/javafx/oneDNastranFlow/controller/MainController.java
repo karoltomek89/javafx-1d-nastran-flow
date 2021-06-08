@@ -22,13 +22,13 @@ public class MainController {
 
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1, String diameter2,
                              String pconvPropertyId, String matId, String formulaType,
-                             String massFlowConvection, String pathToBDF) throws IOException{
+                             String massFlowConvection, String pathToBDF, String medium) throws IOException{
 
         plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF));
 
         propertiesCreator.createPHBDY(phbdyPropertyId, diameter1, diameter2);
         propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection);
-        propertiesCreator.createMAT4(matId);
+        propertiesCreator.createMAT4(matId, medium);
 
         List<String> test1 = ElementsCreator
                 .createChbdyp(Integer.parseInt(offset),

@@ -58,7 +58,7 @@ public class PrimaryController {
         input_choice_surface_type.getItems().addAll("FTUBE");
 
         input_choice_mat.getItems().removeAll(input_choice_mat.getItems());
-        input_choice_mat.getItems().addAll("WATER 20C", "AIR 20C");
+        input_choice_mat.getItems().addAll("WATER_20C_T_MM_S", "AIR_20C_T_MM_S");
 
         input_offset.setText("100000");
         input_phbdy_property_id.setText("888");
@@ -74,7 +74,7 @@ public class PrimaryController {
     }
 
     @FXML
-    private void clickSelectBdfButton() throws IOException {
+    private void clickSelectBdfButton() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().add(
@@ -93,7 +93,9 @@ public class PrimaryController {
                 input_pconv_property_id.getText(),
                 input_mat_id.getText(),
                 input_choice_form_type.getValue().toString(),
-                input_choice_flag.getValue().toString(), path_to_bdf.getText());
+                input_choice_flag.getValue().toString(),
+                path_to_bdf.getText(),
+                input_choice_mat.getValue().toString());
 
 
         mainController.clear();

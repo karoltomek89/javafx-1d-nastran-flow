@@ -6,6 +6,7 @@ import java.util.List;
 public class PropertiesCreator {
 
     List<String> properties = new ArrayList<>();
+    Medium medium;
 
     public void createPHBDY(String phbdyPropertyId, String diameter1, String diameter2) {
         properties.add("$PHBDY CHBDYP Geometric Element Definition");
@@ -21,14 +22,30 @@ public class PropertiesCreator {
 
     }
 
-    public void createMAT4(String matId) {
+    public void createMAT4(String matId, String typedMedium) {
 
         properties.add("$MAT4 Heat Transfer Material Properties, Isotropic");
         properties.add("$MAT4, Material ID, Conductivity, Heat capacity, Density, Free convection coefficient, Dynamic viscosity,");
-        properties.add("MAT4,"+matId+",0.65,4.2e9,1e-9,,1.0E-9");
+
+        switch (typedMedium) {
+            case "WATER_20C_T_MM_S":
+                medium = Medium.WATER_20C_T_MM_S;
+            case "AIR_20C_T_MM_S":
+                medium = Medium.AIR_20C_T_MM_S;
+        }
+
+        properties.add("MAT4," + matId
+                + "," +
+                medium.getConductivity() +
+                "," +
+                medium.getHeatCapacity() +
+                "," +
+                medium.getDensity() +
+                ",," +
+                medium.getDynamicViscosity());
     }
 
-    public void clear(){
+    public void clear() {
         properties = new ArrayList<>();
     }
 
