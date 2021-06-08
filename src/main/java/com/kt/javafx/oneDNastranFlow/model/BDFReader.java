@@ -1,4 +1,4 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.model;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class BDFReader {
+public class BDFReader {
 
     private String bdfName;
     private List<String> plotelList = new ArrayList<>();
 
-    List<String> readBDF(String pathToDBF) {
+    public List<String> readBDF(String pathToDBF) {
 
         try {
             bdfName = pathToDBF;
@@ -36,7 +36,7 @@ class BDFReader {
 
     }
 
-    void clear (){
+    public void clear (){
         bdfName = null;
         plotelList = new ArrayList<>();
     }

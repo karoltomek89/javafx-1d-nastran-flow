@@ -1,8 +1,12 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.view;
 
 import java.io.File;
 import java.io.IOException;
 
+import com.kt.javafx.oneDNastranFlow.controller.MainController;
+import com.kt.javafx.oneDNastranFlow.model.BDFReader;
+import com.kt.javafx.oneDNastranFlow.model.PlotelManipulator;
+import com.kt.javafx.oneDNastranFlow.model.PropertiesCreator;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;

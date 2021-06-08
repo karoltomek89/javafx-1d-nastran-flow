@@ -1,16 +1,16 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.model;
 
 import java.util.Comparator;
 import java.util.List;
 
-class PlotelManipulator {
+ public class PlotelManipulator {
 
     int[][] plotelInSolid;
     int[][] plotelAboveSolid;
     private List<String> plotelInSolidList;
     private List<String> plotelAboveSolidList;
 
-    void creteArrays(List<String> plotelListForProcessing){
+    public void creteArrays(List<String> plotelListForProcessing){
 
         plotelInSolidList = plotelListForProcessing
                 .subList(0,plotelListForProcessing.size()/2);
@@ -36,4 +36,11 @@ class PlotelManipulator {
         return plotelInSolid;
     }
 
-}
+     public int[][] getPlotelInSolid() {
+         return plotelInSolid;
+     }
+
+     public int[][] getPlotelAboveSolid() {
+         return plotelAboveSolid;
+     }
+ }

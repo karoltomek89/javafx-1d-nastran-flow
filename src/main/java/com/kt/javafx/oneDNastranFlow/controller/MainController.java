@@ -1,4 +1,6 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.controller;
+
+import com.kt.javafx.oneDNastranFlow.model.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-class MainController {
+public class MainController {
 
     BDFReader bdfReader;
     PlotelManipulator plotelManipulator;
@@ -30,35 +32,21 @@ class MainController {
 
         List<String> test1 = ElementsCreator
                 .createChbdyp(Integer.parseInt(offset),
-                        plotelManipulator.plotelAboveSolid,
+                        plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(phbdyPropertyId),
                         "FTUBE");
         List<String> test2 = ElementsCreator
-                .createConvm(plotelManipulator.plotelAboveSolid,
+                .createConvm(plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(offset),
-                        plotelManipulator.plotelInSolid,
+                        plotelManipulator.getPlotelInSolid(),
                         Integer.parseInt(pconvPropertyId),
                         Integer.parseInt(ctrlMassId));
 
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("result.txt"));
-
-        for (String s : test1) {
-            writer.write(s + "\n");
-        }
-        for (String s : test2) {
-            writer.write(s + "\n");
-        }
-        for (String s : propertiesCreator.properties) {
-            writer.write(s + "\n");
-        }
-        writer.close();
-
-
+        Saver.saveResult(test1, test2, propertiesCreator.getProperties(), pathToBDF);
     }
 
-    void clear(){
+    public void clear(){
         propertiesCreator.clear();
         bdfReader.clear();
     }
-
 }

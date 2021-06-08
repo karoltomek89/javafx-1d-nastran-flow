@@ -1,6 +1,6 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.model;
 
-enum Medium {
+public enum Medium {
     AIR_20C_T_MM_S("0.65","4.2e9","1e-9","1.0E-9"),
     WATER_20C_T_MM_S("0.65","4.2e9","1e-9","1.0E-9");
 
@@ -16,19 +16,19 @@ enum Medium {
         this.dynamicViscosity = dynamicViscosity;
     }
 
-    String getConductivity() {
+    public String getConductivity() {
         return conductivity;
     }
 
-    String getHeatCapacity() {
+    public String getHeatCapacity() {
         return heatCapacity;
     }
 
-    String getDensity() {
+    public String getDensity() {
         return density;
     }
 
-    String getDynamicViscosity() {
+    public String getDynamicViscosity() {
         return dynamicViscosity;
     }
 

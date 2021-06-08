@@ -1,11 +1,11 @@
-package com.kt.javafx.oneDNastranFlow;
+package com.kt.javafx.oneDNastranFlow.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class ElementsCreator {
+public class ElementsCreator {
 
-    static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
+   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
 
         List<String> chbdypForExport = new ArrayList<>();
         int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
@@ -29,7 +29,7 @@ class ElementsCreator {
         return chbdypForExport;
     }
 
-    static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId) {
+    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId) {
         List<String> convmForExport = new ArrayList<>();
         int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
 
