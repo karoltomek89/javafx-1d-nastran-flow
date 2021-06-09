@@ -43,7 +43,21 @@ import java.util.List;
             plotelInSolid[i][1] = Integer.parseInt(arrayForProcessing[1]);
             plotelInSolid[i][2] = Integer.parseInt(arrayForProcessing[2]);
         }
+
+        checkConsistency(plotelInSolid);
+
         return plotelInSolid;
+    }
+
+    boolean checkConsistency(int [][] arrayToTest){
+        boolean isConsistent = true;
+        for (int i = 0; i < arrayToTest.length -1 ; i++) {
+            if (((arrayToTest[i][1] != arrayToTest[i +1][2]) & (arrayToTest[i][2] != arrayToTest[i +1][1]))){
+                isConsistent = false;
+                break;
+            }
+        }
+        return isConsistent;
     }
 
      public int[][] getPlotelInSolid() {

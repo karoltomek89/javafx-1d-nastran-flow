@@ -21,7 +21,7 @@ public class MyLogger {
         builder.setStatusLevel(Level.DEBUG);
         builder.setConfigurationName("FileBuilder");
         LayoutComponentBuilder layoutBuilder = builder.newLayout("PatternLayout")
-                .addAttribute("pattern", "%d [%t] %-5level: %msg%n");
+                .addAttribute("pattern", "%d %-5level: %msg%n");
         AppenderComponentBuilder appenderBuilder = builder.newAppender("file", "File")
                 .addAttribute("fileName", pathToBDF +"_.log")
                 .addAttribute("append", false)
