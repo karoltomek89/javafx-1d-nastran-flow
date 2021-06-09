@@ -1,5 +1,8 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -10,7 +13,8 @@ import java.util.List;
     private List<String> plotelInSolidList;
     private List<String> plotelAboveSolidList;
 
-    public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder){
+    public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder, Logger logger){
+        logger.log(Level.DEBUG, "reading elements started");
 
         plotelListForProcessing.sort(Comparator.naturalOrder());
 
@@ -21,6 +25,8 @@ import java.util.List;
 
         plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE);
         plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder);
+
+        logger.log(Level.DEBUG, "reading elements finished");
     }
 
     private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder){

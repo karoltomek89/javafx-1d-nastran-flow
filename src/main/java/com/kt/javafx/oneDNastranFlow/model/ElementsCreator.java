@@ -1,11 +1,16 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ElementsCreator {
 
-   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
+   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType, Logger logger) {
+
+       logger.log(Level.DEBUG, "creating CHBDYP elements started");
 
         List<String> chbdypForExport = new ArrayList<>();
         int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
@@ -26,10 +31,15 @@ public class ElementsCreator {
             chbdypForExport.add(stringBuilder.toString());
         }
 
+       logger.log(Level.DEBUG, "creating CHBDYP elements finished");
+
         return chbdypForExport;
     }
 
-    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId) {
+    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId, Logger logger) {
+
+        logger.log(Level.DEBUG, "creating CONVM elements started");
+
         List<String> convmForExport = new ArrayList<>();
         int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
 
@@ -48,6 +58,7 @@ public class ElementsCreator {
                     .append(plotelInSolid[i][2]);
             convmForExport.add(stringBuilder.toString());
         }
+        logger.log(Level.DEBUG, "creating CONVM elements finished");
         return convmForExport;
     }
 
