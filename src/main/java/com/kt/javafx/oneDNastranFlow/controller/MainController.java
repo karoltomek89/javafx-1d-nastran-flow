@@ -22,9 +22,9 @@ public class MainController {
 
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1, String diameter2,
                              String pconvPropertyId, String matId, String formulaType,
-                             String massFlowConvection, String pathToBDF, String medium) throws IOException{
+                             String massFlowConvection, String pathToBDF, String medium, Boolean differentOrder) throws IOException{
 
-        plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF));
+        plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF), differentOrder);
 
         propertiesCreator.createPHBDY(phbdyPropertyId, diameter1, diameter2);
         propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection);

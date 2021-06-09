@@ -10,21 +10,25 @@ import java.util.List;
     private List<String> plotelInSolidList;
     private List<String> plotelAboveSolidList;
 
-    public void creteArrays(List<String> plotelListForProcessing){
+    public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder){
+
+        plotelListForProcessing.sort(Comparator.naturalOrder());
 
         plotelInSolidList = plotelListForProcessing
                 .subList(0,plotelListForProcessing.size()/2);
         plotelAboveSolidList = plotelListForProcessing
                 .subList(plotelListForProcessing.size()/2,plotelListForProcessing.size());
 
-        plotelInSolid = creteArray(plotelInSolidList, Sequence.DECREASING);
-        plotelAboveSolid = creteArray(plotelAboveSolidList, Sequence.INCREASING);
+        plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE);
+        plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder);
     }
 
-    private int [][] creteArray(List<String> inputPlotelList, Enum sequence){
-        if(sequence.equals(Sequence.DECREASING)){
+    private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder){
+
+        if(differentOrder){
             inputPlotelList.sort(Comparator.reverseOrder());
         }
+
         int[][] plotelInSolid = new int[inputPlotelList.size()][3];
         for (int i = 0; i < inputPlotelList.size(); i++) {
             String s = inputPlotelList.get(i);

@@ -8,6 +8,7 @@ import com.kt.javafx.oneDNastranFlow.model.BDFReader;
 import com.kt.javafx.oneDNastranFlow.model.PlotelManipulator;
 import com.kt.javafx.oneDNastranFlow.model.PropertiesCreator;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,6 +43,8 @@ public class PrimaryController {
     private Stage stage;
     @FXML
     private Label path_to_bdf;
+    @FXML
+    private CheckBox check_box_ordering;
 
     MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(), new PropertiesCreator());
 
@@ -95,11 +98,14 @@ public class PrimaryController {
                 input_choice_form_type.getValue().toString(),
                 input_choice_flag.getValue().toString(),
                 path_to_bdf.getText(),
-                input_choice_mat.getValue().toString());
+                input_choice_mat.getValue().toString(),
+                check_box_ordering.isSelected());
 
 
         mainController.clear();
         path_to_bdf.setText("BDF name");
     }
+
+
 
 }
