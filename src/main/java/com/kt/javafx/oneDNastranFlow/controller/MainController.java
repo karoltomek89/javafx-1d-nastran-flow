@@ -17,16 +17,19 @@ public class MainController {
     MyLogger myLogger;
     Logger logger;
 
-    public MainController(BDFReader bdfReader, PlotelManipulator plotelManipulator, PropertiesCreator propertiesCreator, MyLogger myLogger) {
+    public MainController(BDFReader bdfReader, PlotelManipulator plotelManipulator,
+                          PropertiesCreator propertiesCreator, MyLogger myLogger) {
         this.bdfReader = bdfReader;
         this.plotelManipulator = plotelManipulator;
         this.propertiesCreator = propertiesCreator;
         this.myLogger = myLogger;
     }
 
-    public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1, String diameter2,
-                             String pconvPropertyId, String matId, String formulaType,
-                             String massFlowConvection, String pathToBDF, String medium, Boolean differentOrder) throws IOException {
+    public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1,
+                             String diameter2, String pconvPropertyId, String matId, String formulaType,
+                             String massFlowConvection, String pathToBDF, String medium, Boolean differentOrder,
+                             String surfaceType)
+            throws IOException {
 
         logger = myLogger.startLogging(pathToBDF);
 
@@ -37,21 +40,20 @@ public class MainController {
         propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection, logger);
         propertiesCreator.createMAT4(matId, medium, logger);
 
-        List<String> test1 = ElementsCreator
+        List<String> generatedChbdyp = ElementsCreator
                 .createChbdyp(Integer.parseInt(offset),
                         plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(phbdyPropertyId),
-                        "FTUBE", logger);
+                        surfaceType, logger);
 
-
-        List<String> test2 = ElementsCreator
+        List<String> generatedConvm = ElementsCreator
                 .createConvm(plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(offset),
                         plotelManipulator.getPlotelInSolid(),
                         Integer.parseInt(pconvPropertyId),
                         Integer.parseInt(ctrlMassId), logger);
 
-        Saver.saveResult(test1, test2, propertiesCreator.getProperties(), pathToBDF, logger);
+        Saver.saveResult(generatedChbdyp, generatedConvm, propertiesCreator.getProperties(), pathToBDF, logger);
 
     }
 

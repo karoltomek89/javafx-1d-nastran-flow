@@ -15,7 +15,7 @@ public class Saver {
 
         logger.log(Level.DEBUG, "saving results started");
 
-        bdfName = bdfName.replace(".bdf", "_plotel.txt");
+        bdfName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
 
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(bdfName));
 

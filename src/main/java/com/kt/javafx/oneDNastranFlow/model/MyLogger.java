@@ -15,7 +15,7 @@ public class MyLogger {
     LoggerContext ctx;
     ConfigurationBuilder<BuiltConfiguration> builder;
 
-    public Logger startLogging( String pathToBDF){
+    public Logger startLogging(String pathToBDF) {
 
         builder = ConfigurationBuilderFactory.newConfigurationBuilder();
         builder.setStatusLevel(Level.DEBUG);
@@ -23,7 +23,7 @@ public class MyLogger {
         LayoutComponentBuilder layoutBuilder = builder.newLayout("PatternLayout")
                 .addAttribute("pattern", "%d %-5level: %msg%n");
         AppenderComponentBuilder appenderBuilder = builder.newAppender("file", "File")
-                .addAttribute("fileName", pathToBDF +"_.log")
+                .addAttribute("fileName", pathToBDF.replace(".bdf", "_CHBDYP_CONVM.log"))
                 .addAttribute("append", false)
                 .add(layoutBuilder);
         builder.add(appenderBuilder);
@@ -36,7 +36,7 @@ public class MyLogger {
         return ctx.getLogger("TestLogger");
     }
 
-    public void stopLogging(){
+    public void stopLogging() {
         ctx.close();
     }
 }

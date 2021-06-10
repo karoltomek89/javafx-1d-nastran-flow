@@ -47,7 +47,8 @@ public class PrimaryController {
     @FXML
     private CheckBox check_box_ordering;
 
-    MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(), new PropertiesCreator(), new MyLogger());
+    MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(),
+                                                        new PropertiesCreator(), new MyLogger());
 
 
     @FXML
@@ -100,7 +101,8 @@ public class PrimaryController {
                 input_choice_flag.getValue().toString(),
                 path_to_bdf.getText(),
                 input_choice_mat.getValue().toString(),
-                check_box_ordering.isSelected());
+                check_box_ordering.isSelected(),
+                input_choice_surface_type.getValue().toString());
 
 
         mainController.clear();

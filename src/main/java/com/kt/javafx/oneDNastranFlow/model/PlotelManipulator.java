@@ -23,13 +23,13 @@ import java.util.List;
         plotelAboveSolidList = plotelListForProcessing
                 .subList(plotelListForProcessing.size()/2,plotelListForProcessing.size());
 
-        plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE);
-        plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder);
+        plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE, logger);
+        plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder, logger);
 
         logger.log(Level.DEBUG, "reading elements finished");
     }
 
-    private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder){
+    private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder, Logger logger){
 
         if(differentOrder){
             inputPlotelList.sort(Comparator.reverseOrder());
@@ -44,18 +44,24 @@ import java.util.List;
             plotelInSolid[i][2] = Integer.parseInt(arrayForProcessing[2]);
         }
 
-        checkConsistency(plotelInSolid);
+        checkConsistency(plotelInSolid, logger);
 
         return plotelInSolid;
     }
 
-    boolean checkConsistency(int [][] arrayToTest){
+    boolean checkConsistency(int [][] arrayToTest, Logger logger){
+        logger.log(Level.DEBUG, "checking consistency of elements");
         boolean isConsistent = true;
         for (int i = 0; i < arrayToTest.length -1 ; i++) {
             if (((arrayToTest[i][1] != arrayToTest[i +1][2]) & (arrayToTest[i][2] != arrayToTest[i +1][1]))){
                 isConsistent = false;
                 break;
             }
+        }
+        if(isConsistent) {
+            logger.log(Level.DEBUG, "consistency OK");
+        }else{
+            logger.log(Level.DEBUG, "ERROR - consistency not OK - check elements definition!");
         }
         return isConsistent;
     }
