@@ -10,8 +10,11 @@ public class PropertiesCreator {
 
     List<String> properties = new ArrayList<>();
     Medium medium;
+    MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+    Logger logger;
 
-    public void createPHBDY(String phbdyPropertyId, String diameter1, String diameter2, Logger logger) {
+    public void createPHBDY(String phbdyPropertyId, String diameter1, String diameter2) {
+        logger = mySingleLogger.getLogger();
         logger.log(Level.DEBUG, "creating PHBDY properties started");
         properties.add("$PHBDY CHBDYP Geometric Element Definition");
         properties.add("$PHBDY, Property ID, , Diameter 1, Diameter 2");
@@ -19,7 +22,8 @@ public class PropertiesCreator {
         logger.log(Level.DEBUG, "creating PHBDY properties finished");
     }
 
-    public void createCONVM(String pconvPropertyId, String matId, String formulaType, String massFlowConvection, Logger logger) {
+    public void createCONVM(String pconvPropertyId, String matId, String formulaType, String massFlowConvection) {
+        logger = mySingleLogger.getLogger();
         logger.log(Level.DEBUG, "creating CONVM properties started");
         properties.add("$PCONVM Forced Convection Property Definition");
         properties.add("$PCONVM, Convection property ID, Material Property ID, Convection formula type, Flag mass flow convection");
@@ -27,7 +31,9 @@ public class PropertiesCreator {
         logger.log(Level.DEBUG, "creating CONVM properties finished");
     }
 
-    public void createMAT4(String matId, String typedMedium, Logger logger) {
+    public void createMAT4(String matId, String typedMedium) {
+        logger = mySingleLogger.getLogger();
+
         logger.log(Level.DEBUG, "creating MAT4 properties started");
 
         properties.add("$MAT4 Heat Transfer Material Properties, Isotropic");

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.kt.javafx.oneDNastranFlow.controller.MainController;
 import com.kt.javafx.oneDNastranFlow.model.BDFReader;
-import com.kt.javafx.oneDNastranFlow.model.MyLogger;
 import com.kt.javafx.oneDNastranFlow.model.PlotelManipulator;
 import com.kt.javafx.oneDNastranFlow.model.PropertiesCreator;
 import javafx.fxml.FXML;
@@ -48,7 +47,7 @@ public class PrimaryController {
     private CheckBox check_box_ordering;
 
     MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(),
-                                                        new PropertiesCreator(), new MyLogger());
+                                                        new PropertiesCreator());
 
 
     @FXML

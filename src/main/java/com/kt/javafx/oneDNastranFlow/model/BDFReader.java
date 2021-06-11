@@ -1,5 +1,7 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -12,6 +14,8 @@ public class BDFReader {
 
     private String bdfName;
     private List<String> plotelList = new ArrayList<>();
+    MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+    Logger logger;
 
     public List<String> readBDF(String pathToDBF) {
 

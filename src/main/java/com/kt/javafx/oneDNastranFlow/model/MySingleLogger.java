@@ -10,12 +10,23 @@ import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFact
 import org.apache.logging.log4j.core.config.builder.api.LayoutComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 
-public class MyLogger {
+public class MySingleLogger {
+
+    private static class SingletonHelper {
+        private static final MySingleLogger INSTANCE = new MySingleLogger();
+    }
+
+    public static MySingleLogger getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
 
     LoggerContext ctx;
     ConfigurationBuilder<BuiltConfiguration> builder;
+    Logger logger;
 
-    public Logger startLogging(String pathToBDF) {
+    private MySingleLogger() {}
+
+    public void startLogging(String pathToBDF) {
 
         builder = ConfigurationBuilderFactory.newConfigurationBuilder();
         builder.setStatusLevel(Level.DEBUG);
@@ -33,10 +44,14 @@ public class MyLogger {
 
         ctx = Configurator.initialize(builder.build());
 
-        return ctx.getLogger("TestLogger");
+        logger = ctx.getLogger("TestLogger");
     }
 
     public void stopLogging() {
         ctx.close();
+    }
+
+    public Logger getLogger() {
+        return logger;
     }
 }

@@ -14,15 +14,15 @@ public class MainController {
     BDFReader bdfReader;
     PlotelManipulator plotelManipulator;
     PropertiesCreator propertiesCreator;
-    MyLogger myLogger;
+    MySingleLogger mySingleLogger = MySingleLogger.getInstance();
     Logger logger;
 
     public MainController(BDFReader bdfReader, PlotelManipulator plotelManipulator,
-                          PropertiesCreator propertiesCreator, MyLogger myLogger) {
+                          PropertiesCreator propertiesCreator) {
         this.bdfReader = bdfReader;
         this.plotelManipulator = plotelManipulator;
         this.propertiesCreator = propertiesCreator;
-        this.myLogger = myLogger;
+
     }
 
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1,
@@ -31,29 +31,29 @@ public class MainController {
                              String surfaceType)
             throws IOException {
 
-        logger = myLogger.startLogging(pathToBDF);
+        mySingleLogger.startLogging(pathToBDF);
+        logger = mySingleLogger.getLogger();
 
-        logger.log(Level.DEBUG, "start processing file " + pathToBDF);
 
-        plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF), differentOrder, logger);
-        propertiesCreator.createPHBDY(phbdyPropertyId, diameter1, diameter2, logger);
-        propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection, logger);
-        propertiesCreator.createMAT4(matId, medium, logger);
+        plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF), differentOrder);
+        propertiesCreator.createPHBDY(phbdyPropertyId, diameter1, diameter2);
+        propertiesCreator.createCONVM(pconvPropertyId, matId, formulaType, massFlowConvection);
+        propertiesCreator.createMAT4(matId, medium);
 
         List<String> generatedChbdyp = ElementsCreator
                 .createChbdyp(Integer.parseInt(offset),
                         plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(phbdyPropertyId),
-                        surfaceType, logger);
+                        surfaceType);
 
         List<String> generatedConvm = ElementsCreator
                 .createConvm(plotelManipulator.getPlotelAboveSolid(),
                         Integer.parseInt(offset),
                         plotelManipulator.getPlotelInSolid(),
                         Integer.parseInt(pconvPropertyId),
-                        Integer.parseInt(ctrlMassId), logger);
+                        Integer.parseInt(ctrlMassId));
 
-        Saver.saveResult(generatedChbdyp, generatedConvm, propertiesCreator.getProperties(), pathToBDF, logger);
+        Saver.saveResult(generatedChbdyp, generatedConvm, propertiesCreator.getProperties(), pathToBDF);
 
     }
 
@@ -62,6 +62,6 @@ public class MainController {
         propertiesCreator.clear();
         bdfReader.clear();
         logger.log(Level.DEBUG, "end of log");
-        myLogger.stopLogging();
+        mySingleLogger.stopLogging();
     }
 }

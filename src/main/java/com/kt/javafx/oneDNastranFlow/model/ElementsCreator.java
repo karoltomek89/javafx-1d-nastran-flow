@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ElementsCreator {
 
-   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType,
-                                           Logger logger) {
+   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
+       MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+       Logger logger = mySingleLogger.getLogger();
 
        logger.log(Level.DEBUG, "creating CHBDYP elements started");
 
@@ -38,7 +39,9 @@ public class ElementsCreator {
     }
 
     public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId,
-                                           int ctrlMassId, Logger logger) {
+                                           int ctrlMassId) {
+        MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+        Logger logger = mySingleLogger.getLogger();
 
         logger.log(Level.DEBUG, "creating CONVM elements started");
 

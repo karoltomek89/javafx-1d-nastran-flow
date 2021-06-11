@@ -11,7 +11,12 @@ import java.util.List;
 
 public class Saver {
 
-    public static void saveResult(List<String> test1, List<String> test2, List<String> properties, String bdfName, Logger logger) throws IOException {
+
+
+    public static void saveResult(List<String> test1, List<String> test2, List<String> properties, String bdfName) throws IOException {
+
+        MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+        Logger logger = mySingleLogger.getLogger();
 
         logger.log(Level.DEBUG, "saving results started");
 

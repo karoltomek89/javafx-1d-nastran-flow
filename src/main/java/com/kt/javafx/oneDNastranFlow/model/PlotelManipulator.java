@@ -12,8 +12,11 @@ import java.util.List;
     int[][] plotelAboveSolid;
     private List<String> plotelInSolidList;
     private List<String> plotelAboveSolidList;
+     MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+     Logger logger;
 
-    public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder, Logger logger){
+    public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder){
+        logger = mySingleLogger.getLogger();
         logger.log(Level.DEBUG, "reading elements started");
 
         plotelListForProcessing.sort(Comparator.naturalOrder());
@@ -23,13 +26,13 @@ import java.util.List;
         plotelAboveSolidList = plotelListForProcessing
                 .subList(plotelListForProcessing.size()/2,plotelListForProcessing.size());
 
-        plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE, logger);
-        plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder, logger);
+        plotelInSolid = creteArray(plotelInSolidList, Boolean.FALSE);
+        plotelAboveSolid = creteArray(plotelAboveSolidList, differentOrder);
 
         logger.log(Level.DEBUG, "reading elements finished");
     }
 
-    private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder, Logger logger){
+    private int [][] creteArray(List<String> inputPlotelList, Boolean differentOrder){
 
         if(differentOrder){
             inputPlotelList.sort(Comparator.reverseOrder());
@@ -44,12 +47,12 @@ import java.util.List;
             plotelInSolid[i][2] = Integer.parseInt(arrayForProcessing[2]);
         }
 
-        checkConsistency(plotelInSolid, logger);
+        checkConsistency(plotelInSolid);
 
         return plotelInSolid;
     }
 
-    boolean checkConsistency(int [][] arrayToTest, Logger logger){
+    boolean checkConsistency(int [][] arrayToTest){
         logger.log(Level.DEBUG, "checking consistency of elements");
         boolean isConsistent = true;
         for (int i = 0; i < arrayToTest.length -1 ; i++) {
