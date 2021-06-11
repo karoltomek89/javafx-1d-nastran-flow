@@ -8,18 +8,19 @@ import java.util.List;
 
 public class ElementsCreator {
 
-   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType, Logger logger) {
+   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType,
+                                           Logger logger) {
 
        logger.log(Level.DEBUG, "creating CHBDYP elements started");
 
         List<String> chbdypForExport = new ArrayList<>();
-        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
+        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
 
         for (int i = 0; i < plotelAboveSolid.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("CHBDYP")
                     .append(",")
-                    .append(startNumber + offset + i)
+                    .append(startNumber + i)
                     .append(",")
                     .append(propertyId)
                     .append(",")
@@ -36,20 +37,21 @@ public class ElementsCreator {
         return chbdypForExport;
     }
 
-    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId, int ctrlMassId, Logger logger) {
+    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId,
+                                           int ctrlMassId, Logger logger) {
 
         logger.log(Level.DEBUG, "creating CONVM elements started");
 
         List<String> convmForExport = new ArrayList<>();
-        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]);
+        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
 
         for (int i = 0; i < plotelInSolid.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("CONVM")
                     .append(",")
-                    .append(startNumber + offset + i)
+                    .append(startNumber + i)
                     .append(",")
-                    .append(propertyId + 1)
+                    .append(propertyId)
                     .append(",,")
                     .append(ctrlMassId)
                     .append(",")
