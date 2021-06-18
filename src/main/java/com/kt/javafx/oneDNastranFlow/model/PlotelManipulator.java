@@ -1,6 +1,5 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
@@ -44,6 +43,8 @@ public class PlotelManipulator {
 
     private int[][] creteArray(List<String> inputPlotelList, Boolean differentOrder) {
 
+        int[][] plotelArrayTemp = new int[inputPlotelList.size()-1][2];
+
         try {
             Objects.requireNonNull(inputPlotelList);
 
@@ -52,14 +53,14 @@ public class PlotelManipulator {
                 logger.info("Different PLOTEL groups sorting.");
             }
 
-            plotelInSolid = new int[inputPlotelList.size()][3];
+            plotelArrayTemp = new int[inputPlotelList.size()][3];
 
             for (int i = 0; i < inputPlotelList.size(); i++) {
                 String s = inputPlotelList.get(i);
                 String[] arrayForProcessing = s.split(",");
-                plotelInSolid[i][0] = Integer.parseInt(arrayForProcessing[0]);
-                plotelInSolid[i][1] = Integer.parseInt(arrayForProcessing[1]);
-                plotelInSolid[i][2] = Integer.parseInt(arrayForProcessing[2]);
+                plotelArrayTemp[i][0] = Integer.parseInt(arrayForProcessing[0]);
+                plotelArrayTemp[i][1] = Integer.parseInt(arrayForProcessing[1]);
+                plotelArrayTemp[i][2] = Integer.parseInt(arrayForProcessing[2]);
             }
 
             checkConsistency(plotelInSolid);
@@ -68,7 +69,7 @@ public class PlotelManipulator {
             logger.error("No PLOTEL elements exist!");
         }
 
-        return plotelInSolid;
+        return plotelArrayTemp;
     }
 
     boolean checkConsistency(int[][] arrayToTest) {
