@@ -19,10 +19,10 @@ public class ElementsCreator {
         this.chbdypForExport = new ArrayList<>();
         this.convmForExport = new ArrayList<>();
         this.mySingleLogger = MySingleLogger.getInstance();
-        this.logger = mySingleLogger.getLogger();
     }
 
     public List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(surfaceType);
@@ -56,29 +56,34 @@ public class ElementsCreator {
 
     public List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId,
                                     int ctrlMassId) {
+        logger = mySingleLogger.getLogger();
 
-            startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
+        startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
 
-            logger.info("Number of first CONVM element is: " + startNumber);
+        logger.info("Number of first CONVM element is: " + startNumber);
 
-            for (int i = 0; i < plotelInSolid.length; i++) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("CONVM")
-                        .append(",")
-                        .append(startNumber + i)
-                        .append(",")
-                        .append(propertyId)
-                        .append(",,")
-                        .append(ctrlMassId)
-                        .append(",")
-                        .append(plotelInSolid[i][1])
-                        .append(",")
-                        .append(plotelInSolid[i][2]);
-                convmForExport.add(stringBuilder.toString());
-            }
+        for (int i = 0; i < plotelInSolid.length; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("CONVM")
+                    .append(",")
+                    .append(startNumber + i)
+                    .append(",")
+                    .append(propertyId)
+                    .append(",,")
+                    .append(ctrlMassId)
+                    .append(",")
+                    .append(plotelInSolid[i][1])
+                    .append(",")
+                    .append(plotelInSolid[i][2]);
+            convmForExport.add(stringBuilder.toString());
+        }
 
         logger.info("Number of CONVM elements created: " + convmForExport.size());
 
         return convmForExport;
+    }
+    public void clear(){
+        chbdypForExport = new ArrayList<>();
+        convmForExport = new ArrayList<>();
     }
 }

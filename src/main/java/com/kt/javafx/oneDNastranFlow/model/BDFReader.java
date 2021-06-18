@@ -20,10 +20,10 @@ public class BDFReader {
     public BDFReader() {
         this.plotelList = new ArrayList<>();
         this.mySingleLogger = MySingleLogger.getInstance();
-        this.logger = mySingleLogger.getLogger();
     }
 
     public List<String> readBDF(String pathToDBF) {
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(pathToDBF);

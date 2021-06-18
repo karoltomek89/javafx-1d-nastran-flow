@@ -23,7 +23,6 @@ public class MainController {
         this.propertiesCreator = propertiesCreator;
         this.elementsCreator = elementsCreator;
         this.mySingleLogger = MySingleLogger.getInstance();
-        this.logger = mySingleLogger.getLogger();
     }
 
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1,
@@ -32,6 +31,7 @@ public class MainController {
                              String surfaceType) {
 
         mySingleLogger.startLogging(pathToBDF);
+        logger = mySingleLogger.getLogger();
         logger.info("Processing file started...");
 
         plotelManipulator.creteArrays(bdfReader.readBDF(pathToBDF), differentOrder);
@@ -61,6 +61,7 @@ public class MainController {
         logger.info("Clear input data.");
         propertiesCreator.clear();
         bdfReader.clear();
+        elementsCreator.clear();
         logger.info( "End of log.");
         mySingleLogger.stopLogging();
     }

@@ -17,10 +17,10 @@ public class PropertiesCreator {
    public PropertiesCreator() {
         this.properties = new ArrayList<>();
         this.mySingleLogger = MySingleLogger.getInstance();
-        this.logger = mySingleLogger.getLogger();
     }
 
     public void createPHBDY(String phbdyPropertyId, String diameter1, String diameter2) {
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(phbdyPropertyId);
@@ -40,6 +40,8 @@ public class PropertiesCreator {
     }
 
     public void createCONVM(String pconvPropertyId, String matId, String formulaType, String massFlowConvection) {
+        logger = mySingleLogger.getLogger();
+
         try {
             Objects.requireNonNull(pconvPropertyId);
             Objects.requireNonNull(matId);
@@ -60,6 +62,7 @@ public class PropertiesCreator {
     }
 
     public void createMAT4(String matId, String typedMedium) {
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(matId);

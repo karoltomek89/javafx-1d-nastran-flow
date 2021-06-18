@@ -18,10 +18,10 @@ public class PlotelManipulator {
 
     public PlotelManipulator() {
         this.mySingleLogger = MySingleLogger.getInstance();
-        this.logger = mySingleLogger.getLogger();
     }
 
     public void creteArrays(List<String> plotelListForProcessing, Boolean differentOrder) {
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(plotelListForProcessing);

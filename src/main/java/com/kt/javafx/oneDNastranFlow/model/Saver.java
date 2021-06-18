@@ -13,9 +13,10 @@ import java.util.Objects;
 public class Saver {
 
    static MySingleLogger mySingleLogger = MySingleLogger.getInstance();
-   static Logger logger = mySingleLogger.getLogger();
+   static Logger logger;
 
     public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName){
+        logger = mySingleLogger.getLogger();
 
         try {
             Objects.requireNonNull(chbdypList);
