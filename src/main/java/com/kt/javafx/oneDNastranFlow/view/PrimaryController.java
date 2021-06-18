@@ -1,10 +1,10 @@
 package com.kt.javafx.oneDNastranFlow.view;
 
 import java.io.File;
-import java.io.IOException;
 
 import com.kt.javafx.oneDNastranFlow.controller.MainController;
 import com.kt.javafx.oneDNastranFlow.model.BDFReader;
+import com.kt.javafx.oneDNastranFlow.model.ElementsCreator;
 import com.kt.javafx.oneDNastranFlow.model.PlotelManipulator;
 import com.kt.javafx.oneDNastranFlow.model.PropertiesCreator;
 import javafx.fxml.FXML;
@@ -47,8 +47,7 @@ public class PrimaryController {
     private CheckBox check_box_ordering;
 
     MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(),
-                                                        new PropertiesCreator());
-
+                                                        new PropertiesCreator(), new ElementsCreator());
 
     @FXML
     public void initialize() {
@@ -88,7 +87,7 @@ public class PrimaryController {
     }
 
     @FXML
-    private void clickRunButton() throws IOException {
+    private void clickRunButton(){
         mainController.processFiles(input_offset.getText(),
                 input_mass_flow_node_id.getText(),
                 input_phbdy_property_id.getText(),
@@ -103,11 +102,7 @@ public class PrimaryController {
                 check_box_ordering.isSelected(),
                 input_choice_surface_type.getValue().toString());
 
-
         mainController.clear();
         path_to_bdf.setText("BDF name");
     }
-
-
-
 }
