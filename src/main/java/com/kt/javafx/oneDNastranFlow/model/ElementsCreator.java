@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class ElementsCreator {
 
-    int startNumber;
-    List<String> chbdypForExport;
-    List<String> convmForExport;
+    private int startNumber;
+    private List<String> chbdypForExport;
+    private List<String> convmForExport;
     MySingleLogger mySingleLogger;
     Logger logger;
 
@@ -47,7 +47,7 @@ public class ElementsCreator {
                 chbdypForExport.add(stringBuilder.toString());
             }
         } catch (NullPointerException e) {
-            logger.error("No onformation od surface type!");
+            logger.error("No information of surface type!");
         }
 
         logger.info("Number of CHBDYP elements created: " + chbdypForExport.size());
