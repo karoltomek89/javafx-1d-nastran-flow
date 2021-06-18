@@ -8,33 +8,44 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class Saver {
 
+   static MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+   static Logger logger = mySingleLogger.getLogger();
 
+    public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName){
 
-    public static void saveResult(List<String> test1, List<String> test2, List<String> properties, String bdfName) throws IOException {
+        try {
+            Objects.requireNonNull(chbdypList);
+            Objects.requireNonNull(convmList);
+            Objects.requireNonNull(properties);
+            Objects.requireNonNull(bdfName);
 
-        MySingleLogger mySingleLogger = MySingleLogger.getInstance();
-        Logger logger = mySingleLogger.getLogger();
+            logger.info("Saving results...");
 
-        logger.log(Level.DEBUG, "saving results started");
+            bdfName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
 
-        bdfName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(bdfName));
 
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get(bdfName));
+            for (String s : chbdypList) {
+                writer.write(s + "\n");
+            }
+            for (String s : convmList) {
+                writer.write(s + "\n");
+            }
+            for (String s : properties) {
+                writer.write(s + "\n");
+            }
+            logger.info("Saving results finished.");
 
-        for (String s : test1) {
-            writer.write(s + "\n");
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            logger.error("Empty input data!");
         }
-        for (String s : test2) {
-            writer.write(s + "\n");
-        }
-        for (String s : properties) {
-            writer.write(s + "\n");
-        }
-        logger.log(Level.DEBUG, "saving results finished");
-        writer.close();
     }
-
 }
