@@ -5,66 +5,80 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ElementsCreator {
 
-   public static List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
-       MySingleLogger mySingleLogger = MySingleLogger.getInstance();
-       Logger logger = mySingleLogger.getLogger();
+    int startNumber;
+    List<String> chbdypForExport;
+    List<String> convmForExport;
+    MySingleLogger mySingleLogger;
+    Logger logger;
 
-       logger.log(Level.DEBUG, "creating CHBDYP elements started");
+    public ElementsCreator() {
+        this.chbdypForExport = new ArrayList<>();
+        this.convmForExport = new ArrayList<>();
+        this.mySingleLogger = MySingleLogger.getInstance();
+        this.logger = mySingleLogger.getLogger();
+    }
 
-        List<String> chbdypForExport = new ArrayList<>();
-        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
+    public List<String> createChbdyp(int offset, int[][] plotelAboveSolid, int propertyId, String surfaceType) {
 
-        for (int i = 0; i < plotelAboveSolid.length; i++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("CHBDYP")
-                    .append(",")
-                    .append(startNumber + i)
-                    .append(",")
-                    .append(propertyId)
-                    .append(",")
-                    .append(surfaceType)
-                    .append(",,,")
-                    .append(plotelAboveSolid[i][1])
-                    .append(",")
-                    .append(plotelAboveSolid[i][2]);
-            chbdypForExport.add(stringBuilder.toString());
+        try {
+            Objects.requireNonNull(surfaceType);
+
+            startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
+
+            logger.info("Number of first CHBDYP element is: " + startNumber);
+
+            for (int i = 0; i < plotelAboveSolid.length; i++) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("CHBDYP")
+                        .append(",")
+                        .append(startNumber + i)
+                        .append(",")
+                        .append(propertyId)
+                        .append(",")
+                        .append(surfaceType)
+                        .append(",,,")
+                        .append(plotelAboveSolid[i][1])
+                        .append(",")
+                        .append(plotelAboveSolid[i][2]);
+                chbdypForExport.add(stringBuilder.toString());
+            }
+        } catch (NullPointerException e) {
+            logger.error("No onformation od surface type!");
         }
 
-       logger.log(Level.DEBUG, "creating CHBDYP elements finished");
-
+        logger.info("Number of CHBDYP elements created: " + chbdypForExport.size());
         return chbdypForExport;
     }
 
-    public static List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId,
-                                           int ctrlMassId) {
-        MySingleLogger mySingleLogger = MySingleLogger.getInstance();
-        Logger logger = mySingleLogger.getLogger();
+    public List<String> createConvm(int[][] plotelAboveSolid, int offset, int[][] plotelInSolid, int propertyId,
+                                    int ctrlMassId) {
 
-        logger.log(Level.DEBUG, "creating CONVM elements started");
+            startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
 
-        List<String> convmForExport = new ArrayList<>();
-        int startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
+            logger.info("Number of first CONVM element is: " + startNumber);
 
-        for (int i = 0; i < plotelInSolid.length; i++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("CONVM")
-                    .append(",")
-                    .append(startNumber + i)
-                    .append(",")
-                    .append(propertyId)
-                    .append(",,")
-                    .append(ctrlMassId)
-                    .append(",")
-                    .append(plotelInSolid[i][1])
-                    .append(",")
-                    .append(plotelInSolid[i][2]);
-            convmForExport.add(stringBuilder.toString());
-        }
-        logger.log(Level.DEBUG, "creating CONVM elements finished");
+            for (int i = 0; i < plotelInSolid.length; i++) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("CONVM")
+                        .append(",")
+                        .append(startNumber + i)
+                        .append(",")
+                        .append(propertyId)
+                        .append(",,")
+                        .append(ctrlMassId)
+                        .append(",")
+                        .append(plotelInSolid[i][1])
+                        .append(",")
+                        .append(plotelInSolid[i][2]);
+                convmForExport.add(stringBuilder.toString());
+            }
+
+        logger.info("Number of CONVM elements created: " + convmForExport.size());
+
         return convmForExport;
     }
-
 }
