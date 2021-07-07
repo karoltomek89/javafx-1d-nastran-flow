@@ -1,18 +1,18 @@
 package com.kt.javafx.oneDNastranFlow.view;
 
 import java.io.File;
+import java.io.IOException;
 
+import com.kt.javafx.oneDNastranFlow.App;
 import com.kt.javafx.oneDNastranFlow.controller.MainController;
-import com.kt.javafx.oneDNastranFlow.model.BDFReader;
-import com.kt.javafx.oneDNastranFlow.model.ElementsCreator;
-import com.kt.javafx.oneDNastranFlow.model.PlotelManipulator;
-import com.kt.javafx.oneDNastranFlow.model.PropertiesCreator;
+import com.kt.javafx.oneDNastranFlow.model.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PrimaryController {
@@ -47,21 +47,21 @@ public class PrimaryController {
     private CheckBox check_box_ordering;
 
     MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(),
-                                                        new PropertiesCreator(), new ElementsCreator());
+            new PropertiesCreator(), new ElementsCreator());
 
     @FXML
     public void initialize() {
         input_choice_form_type.getItems().removeAll(input_choice_form_type.getItems());
-        input_choice_form_type.getItems().addAll("0","1");
+        input_choice_form_type.getItems().addAll("0", "1");
 
         input_choice_flag.getItems().removeAll(input_choice_flag.getItems());
-        input_choice_flag.getItems().addAll("0","1");
+        input_choice_flag.getItems().addAll("0", "1");
 
         input_choice_surface_type.getItems().removeAll(input_choice_surface_type.getItems());
         input_choice_surface_type.getItems().addAll("FTUBE");
 
         input_choice_mat.getItems().removeAll(input_choice_mat.getItems());
-        input_choice_mat.getItems().addAll("WATER_20C_T_MM_S", "AIR_20C_T_MM_S");
+        input_choice_mat.getItems().addAll("WATER_20C_T_MM_S", "AIR_20C_T_M_S", "WATER_20C_KG_MM_S", "AIR_20C_KG_M_S");
 
         input_offset.setText("100000");
         input_phbdy_property_id.setText("888");
@@ -74,6 +74,8 @@ public class PrimaryController {
         input_choice_flag.getSelectionModel().select(1);
         input_choice_surface_type.getSelectionModel().select(0);
         input_choice_mat.getSelectionModel().select(0);
+
+
     }
 
     @FXML
@@ -87,7 +89,7 @@ public class PrimaryController {
     }
 
     @FXML
-    private void clickRunButton(){
+    private void clickRunButton() {
         mainController.processFiles(input_offset.getText(),
                 input_mass_flow_node_id.getText(),
                 input_phbdy_property_id.getText(),
@@ -102,7 +104,30 @@ public class PrimaryController {
                 check_box_ordering.isSelected(),
                 input_choice_surface_type.getValue().toString());
 
+        openResultDialog();
         mainController.clear();
         path_to_bdf.setText("BDF name");
+        ResultInformation.clear();
     }
+
+    @FXML
+    private void openResultDialog() {
+        FXMLLoader myFxmlLoader = null;
+        Parent myParent = null;
+        try {
+            myFxmlLoader = new FXMLLoader(App.class.getResource("result.fxml"));
+            myParent = myFxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ResultDialogController resultDialogController = myFxmlLoader.getController();
+        resultDialogController.prepareResultWindow();
+        Scene scene = new Scene(myParent, 550, 320);
+        Stage stage = new Stage();
+        stage.setTitle("1D Flow Nastran Creator");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
 }
