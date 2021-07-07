@@ -63,7 +63,7 @@ public class PlotelManipulator {
                 plotelArrayTemp[i][2] = Integer.parseInt(arrayForProcessing[2]);
             }
 
-            checkConsistency(plotelInSolid);
+            checkConsistency(plotelArrayTemp);
 
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
