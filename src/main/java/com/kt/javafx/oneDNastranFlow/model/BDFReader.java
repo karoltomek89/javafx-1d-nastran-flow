@@ -42,6 +42,8 @@ public class BDFReader {
 
         logger.info("Number of PLOTEL elements in BDF file: " + plotelList.size());
 
+        ResultInformation.numberPlotelElements = plotelList.size();
+
         return plotelList.parallelStream()
                 .map(p -> p.trim()
                         .substring(9, 32))

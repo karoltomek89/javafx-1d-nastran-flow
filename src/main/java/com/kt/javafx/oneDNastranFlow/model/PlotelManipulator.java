@@ -91,9 +91,11 @@ public class PlotelManipulator {
                 logger.info("Consistency OK");
             } else {
                 logger.error("Consistency not OK - check elements definition!");
+                ResultInformation.consistency = false;
             }
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
+            ResultInformation.consistency = false;
         }
         return isConsistent;
     }
