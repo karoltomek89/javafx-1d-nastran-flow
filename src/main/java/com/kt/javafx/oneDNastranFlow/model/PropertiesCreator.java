@@ -75,12 +75,16 @@ public class PropertiesCreator {
             switch (typedMedium) {
                 case "WATER_20C_T_MM_S":
                     medium = Medium.WATER_20C_T_MM_S;
+                    break;
                 case "AIR_20C_T_MM_S":
                     medium = Medium.AIR_20C_T_MM_S;
+                    break;
                 case "WATER_20C_KG_M_S":
                     medium = Medium.WATER_20C_KG_M_S;
-                case "AIR_20C_GK_M_S":
+                    break;
+                case "AIR_20C_KG_M_S":
                     medium = Medium.AIR_20C_KG_M_S;
+                    break;
             }
 
             properties.add("MAT4," + matId
