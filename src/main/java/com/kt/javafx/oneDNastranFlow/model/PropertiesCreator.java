@@ -77,6 +77,10 @@ public class PropertiesCreator {
                     medium = Medium.WATER_20C_T_MM_S;
                 case "AIR_20C_T_MM_S":
                     medium = Medium.AIR_20C_T_MM_S;
+                case "WATER_20C_KG_M_S":
+                    medium = Medium.WATER_20C_KG_M_S;
+                case "AIR_20C_GK_M_S":
+                    medium = Medium.AIR_20C_KG_M_S;
             }
 
             properties.add("MAT4," + matId
