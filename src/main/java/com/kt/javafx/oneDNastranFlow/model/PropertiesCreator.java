@@ -1,5 +1,6 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import javafx.scene.control.Alert;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -101,6 +102,12 @@ public class PropertiesCreator {
 
         } catch (NullPointerException e) {
             logger.error("Empty input data!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("Empty input data!");
+            alert.setContentText("Check the selected properties!");
+            alert.showAndWait();
         }
     }
 

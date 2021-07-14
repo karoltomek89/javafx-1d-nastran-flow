@@ -1,5 +1,7 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BDFReader {
@@ -25,8 +28,11 @@ public class BDFReader {
     public List<String> readBDF(String pathToDBF) {
         logger = mySingleLogger.getLogger();
 
+        if (pathToDBF.equals("BDF name")) pathToDBF = null;
+
         try {
             Objects.requireNonNull(pathToDBF);
+
 
             logger.info("Reading file: " + pathToDBF);
 
@@ -36,9 +42,24 @@ public class BDFReader {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             logger.error("Error reading file!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("Error reading file!");
+            alert.setContentText("Check the BDF file path!");
+            alert.showAndWait();
+
         } catch (NullPointerException e) {
             logger.error("Empty path to file!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("Empty path to file!");
+            alert.setContentText("Check the BDF file path!");
+            alert.showAndWait();
+
         }
+
 
         logger.info("Number of PLOTEL elements in BDF file: " + plotelList.size());
 

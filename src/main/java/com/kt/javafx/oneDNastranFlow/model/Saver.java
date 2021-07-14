@@ -1,5 +1,6 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import javafx.scene.control.Alert;
 import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedWriter;
@@ -43,9 +44,23 @@ public class Saver {
             writer.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+
+            logger.error("Error saving results!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("Error saving results!");
+            alert.setContentText("Check the permissions!");
+            alert.showAndWait();
+
         }catch (NullPointerException e){
-            logger.error("Empty input data!");
+            logger.error("No data to save!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("No data to save!");
+            alert.setContentText("Check BDF file and input");
+            alert.showAndWait();
         }
     }
 }
