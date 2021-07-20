@@ -1,6 +1,8 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
-import javafx.scene.control.Alert;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class PropertiesCreator {
     MySingleLogger mySingleLogger;
     Logger logger;
 
-   public PropertiesCreator() {
+    public PropertiesCreator() {
         this.properties = new ArrayList<>();
         this.mySingleLogger = MySingleLogger.getInstance();
     }
@@ -76,27 +78,24 @@ public class PropertiesCreator {
             switch (typedMedium) {
                 case "WATER_20C_T_MM_S":
                     medium = Medium.WATER_20C_T_MM_S;
+                    extractAndAddParameters(matId, medium);
                     break;
                 case "AIR_20C_T_MM_S":
                     medium = Medium.AIR_20C_T_MM_S;
+                    extractAndAddParameters(matId, medium);
                     break;
                 case "WATER_20C_KG_M_S":
                     medium = Medium.WATER_20C_KG_M_S;
+                    extractAndAddParameters(matId, medium);
                     break;
                 case "AIR_20C_KG_M_S":
                     medium = Medium.AIR_20C_KG_M_S;
+                    extractAndAddParameters(matId, medium);
+                    break;
+                case "OTHER":
+                    addOtherParameters(matId);
                     break;
             }
-
-            properties.add("MAT4," + matId
-                    + "," +
-                    medium.getConductivity() +
-                    "," +
-                    medium.getHeatCapacity() +
-                    "," +
-                    medium.getDensity() +
-                    ",," +
-                    medium.getDynamicViscosity());
 
             logger.info("MAT4 properties created.");
 
@@ -109,6 +108,73 @@ public class PropertiesCreator {
             alert.setContentText("Check the selected properties!");
             alert.showAndWait();
         }
+    }
+
+    private void extractAndAddParameters(String matId, Medium medium) {
+        properties.add("MAT4," + matId
+                + "," +
+                medium.getConductivity() +
+                "," +
+                medium.getHeatCapacity() +
+                "," +
+                medium.getDensity() +
+                ",," +
+                medium.getDynamicViscosity());
+    }
+
+    private void addOtherParameters(String matId) {
+
+        Dialog dialog = new Dialog<>();
+        dialog.setTitle("1D Nastran Flow");
+        dialog.setHeaderText("Type medium information");
+
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(okButtonType);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField otherConductivity = new TextField();
+        TextField otherHeatCapacity = new TextField();
+        TextField otherDensity = new TextField();
+        TextField otherDynamicViscosity = new TextField();
+
+        grid.add(new Label("Conductivity:"), 0, 0);
+        grid.add(otherConductivity, 1, 0);
+        grid.add(new Label("Heat Capacity:"), 0, 1);
+        grid.add(otherHeatCapacity, 1, 1);
+        grid.add(new Label("Density:"), 0, 2);
+        grid.add(otherDensity, 1, 2);
+        grid.add(new Label("Dynamic Viscosity:"), 0, 3);
+        grid.add(otherDynamicViscosity, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.showAndWait();
+
+            if (otherConductivity.getText().isEmpty() || otherHeatCapacity.getText().isEmpty() ||
+                    otherDensity.getText().isEmpty() || otherDynamicViscosity.getText().isEmpty()) {
+
+            logger.warn("Probably incorect medium data.");
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("1D Nastran Flow");
+            alert.setHeaderText("Probably incorect medium data!");
+            alert.setContentText("Check the medium data.");
+            alert.showAndWait();
+        }
+
+        properties.add("MAT4," + matId
+                + "," +
+                otherConductivity.getText() +
+                "," +
+                otherHeatCapacity.getText() +
+                "," +
+                otherDensity.getText() +
+                ",," +
+                otherDynamicViscosity.getText());
     }
 
     public void clear() {
