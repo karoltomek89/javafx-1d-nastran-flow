@@ -61,7 +61,7 @@ public class PrimaryController {
         input_choice_surface_type.getItems().addAll("FTUBE");
 
         input_choice_mat.getItems().removeAll(input_choice_mat.getItems());
-        input_choice_mat.getItems().addAll("AIR_20C_T_MM_S", "WATER_20C_T_MM_S", "AIR_20C_KG_M_S", "WATER_20C_KG_M_S" );
+        input_choice_mat.getItems().addAll("AIR_20C_T_MM_S", "WATER_20C_T_MM_S", "AIR_20C_KG_M_S", "WATER_20C_KG_M_S", "OTHER");
 
         input_offset.setText("100000");
         input_phbdy_property_id.setText("888");
@@ -75,6 +75,11 @@ public class PrimaryController {
         input_choice_surface_type.getSelectionModel().select(0);
         input_choice_mat.getSelectionModel().select(0);
 
+        input_choice_mat.setOnAction(event -> {
+            if (input_choice_mat.getValue().equals("OTHER")){
+
+            };
+        });
 
     }
 
