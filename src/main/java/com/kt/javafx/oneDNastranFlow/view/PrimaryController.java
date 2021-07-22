@@ -45,6 +45,8 @@ public class PrimaryController {
     private Label path_to_bdf;
     @FXML
     private CheckBox check_box_ordering;
+    @FXML
+    private CheckBox check_box_save_results;
 
     MainController mainController = new MainController(new BDFReader(), new PlotelManipulator(),
             new PropertiesCreator(), new ElementsCreator());
@@ -75,12 +77,6 @@ public class PrimaryController {
         input_choice_surface_type.getSelectionModel().select(0);
         input_choice_mat.getSelectionModel().select(0);
 
-        input_choice_mat.setOnAction(event -> {
-            if (input_choice_mat.getValue().equals("OTHER")){
-
-            };
-        });
-
     }
 
     @FXML
@@ -107,7 +103,8 @@ public class PrimaryController {
                 path_to_bdf.getText(),
                 input_choice_mat.getValue().toString(),
                 check_box_ordering.isSelected(),
-                input_choice_surface_type.getValue().toString());
+                input_choice_surface_type.getValue().toString(),
+                check_box_save_results.isSelected());
 
         openResultDialog();
         mainController.clear();

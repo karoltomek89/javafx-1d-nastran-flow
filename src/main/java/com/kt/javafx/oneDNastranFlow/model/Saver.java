@@ -15,7 +15,7 @@ public class Saver {
    static MySingleLogger mySingleLogger = MySingleLogger.getInstance();
    static Logger logger;
 
-    public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName){
+    public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName, Boolean insertResults, List<String> wholeBDF){
         logger = mySingleLogger.getLogger();
 
         try {
@@ -26,9 +26,9 @@ public class Saver {
 
             logger.info("Saving results...");
 
-            bdfName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
+           String resultFileName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
 
-            BufferedWriter writer = Files.newBufferedWriter(Paths.get(bdfName));
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(resultFileName));
 
             for (String s : chbdypList) {
                 writer.write(s + "\n");
@@ -42,6 +42,30 @@ public class Saver {
             logger.info("Saving results finished.");
 
             writer.close();
+
+            if(insertResults){
+
+                BufferedWriter writerExtra = Files.newBufferedWriter(Paths.get(bdfName));
+
+                wholeBDF.remove(wholeBDF.size()-1);
+
+                for (String s : wholeBDF) {
+                    writerExtra.write(s + "\n");
+                }
+                for (String s : chbdypList) {
+                    writerExtra.write(s + "\n");
+                }
+                for (String s : convmList) {
+                    writerExtra.write(s + "\n");
+                }
+                for (String s : properties) {
+                    writerExtra.write(s + "\n");
+                }
+                writerExtra.write("ENDDATA");
+                logger.info("Saving results finished.");
+
+                writerExtra.close();
+            }
 
         } catch (IOException e) {
 

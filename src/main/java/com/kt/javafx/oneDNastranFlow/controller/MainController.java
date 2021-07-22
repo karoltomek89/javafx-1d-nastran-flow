@@ -27,7 +27,7 @@ public class MainController {
     public void processFiles(String offset, String ctrlMassId, String phbdyPropertyId, String diameter1,
                              String diameter2, String pconvPropertyId, String matId, String formulaType,
                              String massFlowConvection, String pathToBDF, String medium, Boolean differentOrder,
-                             String surfaceType) {
+                             String surfaceType, Boolean insertResults) {
 
         mySingleLogger.startLogging(pathToBDF);
         logger = mySingleLogger.getLogger();
@@ -51,7 +51,7 @@ public class MainController {
                         Integer.parseInt(pconvPropertyId),
                         Integer.parseInt(ctrlMassId));
 
-        Saver.saveResult(generatedChbdyp, generatedConvm, propertiesCreator.getProperties(), pathToBDF);
+        Saver.saveResult(generatedChbdyp, generatedConvm, propertiesCreator.getProperties(), pathToBDF, insertResults, bdfReader.getWholeBDF());
 
         logger.info("Processing file finished.");
     }
