@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class BDFReader {
 
     private List<String> plotelList;
+    private List<String> wholeBDF;
     MySingleLogger mySingleLogger;
     Logger logger;
 
@@ -36,10 +37,14 @@ public class BDFReader {
 
             logger.info("Reading file: " + pathToDBF);
 
-            plotelList = Files.lines(Paths.get(pathToDBF), StandardCharsets.ISO_8859_1)
+            wholeBDF = Files.lines(Paths.get(pathToDBF), StandardCharsets.ISO_8859_1).collect(Collectors.toList());
+
+            plotelList = wholeBDF.parallelStream()
                     .filter(p -> p.startsWith("PLOTEL  "))
                     .sorted()
                     .collect(Collectors.toList());
+
+
         } catch (IOException e) {
             logger.error("Error reading file!");
 
@@ -72,6 +77,10 @@ public class BDFReader {
                 .map(s -> s.trim().replaceAll("[ ]{1,}", ","))
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    public List<String> getWholeBDF() {
+        return wholeBDF;
     }
 
     public void clear() {
