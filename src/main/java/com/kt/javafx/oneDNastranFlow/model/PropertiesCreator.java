@@ -101,12 +101,7 @@ public class PropertiesCreator {
 
         } catch (NullPointerException e) {
             logger.error("Empty input data!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("Empty input data!");
-            alert.setContentText("Check the selected properties!");
-            alert.showAndWait();
+            AlertCreator.createError("Empty input data!", "Check the selected properties!");
         }
     }
 
@@ -154,16 +149,11 @@ public class PropertiesCreator {
 
         dialog.showAndWait();
 
-            if (otherConductivity.getText().isEmpty() || otherHeatCapacity.getText().isEmpty() ||
-                    otherDensity.getText().isEmpty() || otherDynamicViscosity.getText().isEmpty()) {
+        if (otherConductivity.getText().isEmpty() || otherHeatCapacity.getText().isEmpty() ||
+                otherDensity.getText().isEmpty() || otherDynamicViscosity.getText().isEmpty()) {
 
             logger.warn("Probably incorect medium data.");
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("Probably incorect medium data!");
-            alert.setContentText("Check the medium data.");
-            alert.showAndWait();
+            AlertCreator.createError("Probably incorect medium data!", "Check the medium data.");
         }
 
         properties.add("MAT4," + matId

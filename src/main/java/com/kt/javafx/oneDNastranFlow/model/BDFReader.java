@@ -47,21 +47,11 @@ public class BDFReader {
 
         } catch (IOException e) {
             logger.error("Error reading file!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("Error reading file!");
-            alert.setContentText("Check the BDF file path!");
-            alert.showAndWait();
+            AlertCreator.createError("Error reading file!","Check the BDF file path!");
 
         } catch (NullPointerException e) {
             logger.error("Empty path to file!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("Empty path to file!");
-            alert.setContentText("Check the BDF file path!");
-            alert.showAndWait();
+            AlertCreator.createError("Empty path to file!", "Check the BDF file path!");
 
         }
 

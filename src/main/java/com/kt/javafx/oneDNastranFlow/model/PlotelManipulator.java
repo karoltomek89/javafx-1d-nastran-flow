@@ -68,12 +68,7 @@ public class PlotelManipulator {
 
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("No PLOTEL elements exist!");
-            alert.setContentText("Check the BDF file!");
-            alert.showAndWait();
+            AlertCreator.createError("No PLOTEL elements exist!", "Check the BDF file!");
         }
 
         return plotelArrayTemp;
@@ -102,13 +97,7 @@ public class PlotelManipulator {
             }
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("No PLOTEL elements exist!");
-            alert.setContentText("Check the BDF file!");
-            alert.showAndWait();
-
+            AlertCreator.createError("No PLOTEL elements exist!", "Check the BDF file!");
             ResultInformation.consistency = false;
         }
         return isConsistent;

@@ -50,12 +50,8 @@ public class ElementsCreator {
             }
         } catch (NullPointerException e) {
             logger.error("No information of surface type!");
+            AlertCreator.createError("No information of surface type!", "Check the surface type!");
 
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("No information of surface type!");
-            alert.setContentText("Check the surface type!");
-            alert.showAndWait();
         }
 
         logger.info("Number of CHBDYP elements created: " + chbdypForExport.size());

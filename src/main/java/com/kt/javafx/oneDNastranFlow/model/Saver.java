@@ -12,10 +12,10 @@ import java.util.Objects;
 
 public class Saver {
 
-   static MySingleLogger mySingleLogger = MySingleLogger.getInstance();
-   static Logger logger;
+    static MySingleLogger mySingleLogger = MySingleLogger.getInstance();
+    static Logger logger;
 
-    public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName, Boolean insertResults, List<String> wholeBDF){
+    public static void saveResult(List<String> chbdypList, List<String> convmList, List<String> properties, String bdfName, Boolean insertResults, List<String> wholeBDF) {
         logger = mySingleLogger.getLogger();
 
         try {
@@ -26,7 +26,7 @@ public class Saver {
 
             logger.info("Saving results...");
 
-           String resultFileName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
+            String resultFileName = bdfName.replace(".bdf", "_CHBDYP_CONVM.txt");
 
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(resultFileName));
 
@@ -43,11 +43,11 @@ public class Saver {
 
             writer.close();
 
-            if(insertResults){
+            if (insertResults) {
 
                 BufferedWriter writerExtra = Files.newBufferedWriter(Paths.get(bdfName));
 
-                wholeBDF.remove(wholeBDF.size()-1);
+                wholeBDF.remove(wholeBDF.size() - 1);
 
                 for (String s : wholeBDF) {
                     writerExtra.write(s + "\n");
@@ -68,23 +68,12 @@ public class Saver {
             }
 
         } catch (IOException e) {
-
             logger.error("Error saving results!");
+            AlertCreator.createError("Error saving results!", "Check the permissions!");
 
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("Error saving results!");
-            alert.setContentText("Check the permissions!");
-            alert.showAndWait();
-
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             logger.error("No data to save!");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("1D Nastran Flow");
-            alert.setHeaderText("No data to save!");
-            alert.setContentText("Check BDF file and input");
-            alert.showAndWait();
+            AlertCreator.createError("No data to save!", "Check BDF file and input");
         }
     }
 }
