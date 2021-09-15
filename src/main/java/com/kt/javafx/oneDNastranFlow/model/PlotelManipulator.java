@@ -1,5 +1,6 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import javafx.scene.control.Alert;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
@@ -63,10 +64,11 @@ public class PlotelManipulator {
                 plotelArrayTemp[i][2] = Integer.parseInt(arrayForProcessing[2]);
             }
 
-            checkConsistency(plotelInSolid);
+            checkConsistency(plotelArrayTemp);
 
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
+            AlertCreator.createError("No PLOTEL elements exist!", "Check the BDF file!");
         }
 
         return plotelArrayTemp;
@@ -90,10 +92,13 @@ public class PlotelManipulator {
             if (isConsistent) {
                 logger.info("Consistency OK");
             } else {
-                logger.error("Consistency not OK - check elements definition!");
+                logger.warn("Consistency not OK - check elements definition!");
+                ResultInformation.consistency = false;
             }
         } catch (NullPointerException e) {
             logger.error("No PLOTEL elements exist!");
+            AlertCreator.createError("No PLOTEL elements exist!", "Check the BDF file!");
+            ResultInformation.consistency = false;
         }
         return isConsistent;
     }

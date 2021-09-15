@@ -1,5 +1,6 @@
 package com.kt.javafx.oneDNastranFlow.model;
 
+import javafx.scene.control.Alert;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class ElementsCreator {
 
             logger.info("Number of first CHBDYP element is: " + startNumber);
 
+            ResultInformation.numberFirstChbdyp = startNumber;
+
             for (int i = 0; i < plotelAboveSolid.length; i++) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("CHBDYP")
@@ -47,9 +50,14 @@ public class ElementsCreator {
             }
         } catch (NullPointerException e) {
             logger.error("No information of surface type!");
+            AlertCreator.createError("No information of surface type!", "Check the surface type!");
+
         }
 
         logger.info("Number of CHBDYP elements created: " + chbdypForExport.size());
+
+        ResultInformation.numberChbdypElements = chbdypForExport.size();
+
         return chbdypForExport;
     }
 
@@ -60,6 +68,8 @@ public class ElementsCreator {
         startNumber = Math.min(plotelAboveSolid[1][0], plotelAboveSolid[plotelAboveSolid.length - 1][0]) + offset;
 
         logger.info("Number of first CONVM element is: " + startNumber);
+
+        ResultInformation.numberFirstConvm = startNumber;
 
         for (int i = 0; i < plotelInSolid.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -78,6 +88,8 @@ public class ElementsCreator {
         }
 
         logger.info("Number of CONVM elements created: " + convmForExport.size());
+
+        ResultInformation.numberConvmElements = convmForExport.size();
 
         return convmForExport;
     }
